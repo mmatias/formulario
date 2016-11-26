@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<title>JSF 2.0 Hello World</title>
+	<h:outputScript name="jquery.js" library="js" />
+	<h:outputScript name="bootstrap.js" library="js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="custom.css" />
+	<h:outputStylesheet library="css" name="minhas_animacoes.css" />
+</h:head>
+<h:body>
+<h:form>
+<h:commandButton value="Formulario Comercial" action="#{formularioBean.com()}" styleClass='btn-warning btn element-animation' ></h:commandButton>
+<h:commandButton value="Formulario Financeiro" action="#{formularioBean.formulariofinanceiro()}" styleClass='btn-info btn element-animation' ></h:commandButton>
+<h:commandButton value="Formulario Suporte" action="#{formularioBean.formulariosuporte()}" styleClass='btn-success btn element-animation' ></h:commandButton>
+<h:form>
+<h:inputText value="#{formularioBean.comercial.produto}"></h:inputText>
+<h:commandButton value="teste" action="#{formularioBean.teste()}" styleClass='btn-success btn element-animation' ></h:commandButton>
+</h:form>
+</h:form>
+
+</h:body>
+</html>

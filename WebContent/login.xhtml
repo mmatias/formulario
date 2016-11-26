@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<title>JSF 2.0 Hello World</title>
+	<h:outputScript name="jquery.js" library="js" />
+	<h:outputScript name="bootstrap.js" library="js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="custom.css" />
+	<h:outputStylesheet library="css" name="minhas_animacoes.css" />
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="form_login text-center element-animation">
+			<h:form>
+				<div class="form-group has-feedback">
+					<span class="glyphicon glyphicon-user"></span> <label
+						for="prontuario_id" class="control-label">Login</label>
+					<h:inputText value="#{formularioBean.usuario.login}"
+						styleClass="form-control input-lg" a:placeholder="Digite o login"
+						a:data-error="Por favor, informe um prontuário válido"
+						a:required="required"></h:inputText>
+					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+					<div class="help-block with-errors"></div>
+				</div>
+
+				<div class="form-group has-feedback">
+					<span class="glyphicon glyphicon-list-alt"></span> <label
+						for="senha" class="control-label">Senha</label>
+					<h:inputText value="#{formularioBean.usuario.senha}" a:type="password"
+						styleClass="form-control input-lg"
+						a:data-error="Por favor, preencha novamente."
+						a:placeholder="Digite a senha" a:required="required"></h:inputText>
+					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+					<div class="help-block with-errors"></div>
+				</div>
+
+				<div class="form-group btn-group" role="group">
+					<h:commandButton styleClass="btn-info btn" id="botao"
+						value="Entrar" action="#{formularioBean.usuario.logar()}" />
+				</div>
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>
