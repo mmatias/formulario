@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +29,7 @@ public class FormularioBean implements Serializable {
 	private FormComercial comercial = new FormComercial();
 	private FormSuporte suporte = new FormSuporte();
 	private FormFinanceiro financeiro = new FormFinanceiro();
+	private List<FormComercial> comercialList= new ArrayList<FormComercial>();
 
 	@PostConstruct
 	public void init() {
@@ -81,6 +84,55 @@ public class FormularioBean implements Serializable {
 			System.err.println(e.getMessage());
 		}
 	}
+	
+	public String listComercial() {
+		try {
+			// create a mysql database connection
+			String myDriver = "org.gjt.mm.mysql.Driver";
+			String myUrl = "jdbc:mysql://localhost/dw2";
+			Class.forName(myDriver);
+			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+				FormComercial c = new FormComercial();
+				Produtos p = new Produtos();
+				
+				  // our SQL SELECT query. 
+			      // if you only need a few columns, specify them by name instead of using "*"
+			      String query = "SELECT * FROM comercial";
+
+			      // create the java statement
+			      Statement st = conn.createStatement();
+			      
+			      // execute the query, and get a java resultset
+			      ResultSet rs = st.executeQuery(query);
+			      
+			      // iterate through the java resultset
+			      while (rs.next())
+			      {
+			        c.setNome(rs.getString("nome"));
+					c.setCpf(rs.getString("cpf"));
+					c.setEmail(rs.getString("email"));
+					c.setTelefone(rs.getString("telefone"));
+					p.setNomeproduto(rs.getString("produto"));
+					p.setValor(rs.getString("valor"));
+					p.setQnt(rs.getString("quantidade"));
+					p.setData(rs.getString("data"));
+					c.setProduto1(p);
+					this.comercialList.add(c);
+			        
+			        // print the results
+					 for (int i=0; i<comercialList.size(); i++){
+						   System.err.println("Element "+i+comercialList.get(i));
+						}
+			      }
+			      st.close();
+			    }
+			    catch (Exception e)
+			    {
+			      System.err.println("Got an exception! ");
+			      System.err.println(e.getMessage());
+			    }
+		return "list";
+	}
 
 	public FormComercial getComercial() {
 		return comercial;
@@ -112,5 +164,13 @@ public class FormularioBean implements Serializable {
 
 	public void setFinanceiro(FormFinanceiro financeiro) {
 		this.financeiro = financeiro;
+	}
+
+	public List<FormComercial> getComercialList() {
+		return comercialList;
+	}
+
+	public void setComercialList(List<FormComercial> comercialList) {
+		this.comercialList = comercialList;
 	}
 }

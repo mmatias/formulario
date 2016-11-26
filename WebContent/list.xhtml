@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<title>JSF 2.0 Hello World</title>
+	<h:outputScript name="jquery.js" library="js" />
+	<h:outputScript name="bootstrap.js" library="js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="custom.css" />
+	<h:outputStylesheet library="css" name="minhas_animacoes.css" />
+</h:head>
+<h:body>		
+		<p:dataTable value="#{formularioBean.comercialList}" var="comercial">
+	<p:column>
+		<f:facet name="header">
+			<h:outputText value="Nome"></h:outputText>
+		</f:facet>
+		<h:outputText value="#{comercial.nome}"></h:outputText>
+	</p:column>
+	<p:column>
+		<f:facet name="header">
+			<h:outputText value="CPF"></h:outputText>
+		</f:facet>
+		<h:outputText value="#{comercial.cpf}"></h:outputText>
+	</p:column>	
+	<p:column>
+		<f:facet name="header">
+			<h:outputText value="Telefone"></h:outputText>
+		</f:facet>
+		<h:outputText value="#{comercial.telefone}"></h:outputText>
+	</p:column>
+	<p:column>
+		<f:facet name="header">
+			<h:outputText value="Produto"></h:outputText>
+		</f:facet>
+		<h:outputText value="#{comercial.produto1.nomeproduto}"></h:outputText>
+	</p:column>
+</p:dataTable>	
+																																										
+</h:body>
+</html>
