@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<title>JSF 2.0 Hello World</title>
+	<h:outputScript name="jquery.js" library="js" />
+	<h:outputScript name="bootstrap.js" library="js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="custom.css" />
+	<h:outputStylesheet library="css" name="minhas_animacoes.css" />
+</h:head>
+<h:body>
+<ui:include src="/WEB-INF/menu.xhtml" />
+	<h:form a:class='form_custom text-center element-animation'>
+		<br>Nome: </br>
+		<h:inputText value="#{formularioBean.financeiro.nome}" a:class='form-control text-center' type='text' id='nome'	name='nome'></h:inputText>
+		<br> CPF: </br>
+		<h:inputText value="#{formularioBean.financeiro.cpf}" a:class='form-control text-center' type='text' id='cpf' name='cpf' a:required="required"></h:inputText>
+		<br> Email: </br>
+		<h:inputText value="#{formularioBean.financeiro.email}" type='email' a:class='form-control text-center' id='email' name='email' a:required="required"></h:inputText>
+		<br> telefone: </br>
+		<h:inputText value="#{formularioBean.financeiro.telefone}" type='text' a:class='form-control text-center' id='telefone' name='telefone'></h:inputText>
+		<br>Fatura 1: </br>
+		<h:inputText value="#{formularioBean.financeiro.fatura1}" type='text' a:class='form-control text-center' id='prod1' name='prod1'></h:inputText>
+		<br>Fatura 2: </br>
+		<h:inputText value="#{formularioBean.financeiro.fatura2}" type='text' a:class='form-control text-center' id='prod2' name='prod2'></h:inputText>
+		<br>Fatura 3: </br>
+		<h:inputText value="#{formularioBean.financeiro.fatura3}" type='text' a:class='form-control text-center' id='prod3' name='prod3'></h:inputText>
+		<br></br>
+		<h:commandButton action="#{formularioBean.saveFinanceiro()}" a:class='btn btn-default' value='Salvar'></h:commandButton>
+		</h:form>																																							
+</h:body>
+</html>

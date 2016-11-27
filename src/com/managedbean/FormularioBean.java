@@ -30,7 +30,8 @@ public class FormularioBean implements Serializable {
 	private FormSuporte suporte = new FormSuporte();
 	private FormFinanceiro financeiro = new FormFinanceiro();
 	private List<FormComercial> comercialList;
-
+	private List<FormFinanceiro> financeiroList;
+	
 	@PostConstruct
 	public void init() {
 		System.out.println(" Bean executado! ");
@@ -304,6 +305,210 @@ public class FormularioBean implements Serializable {
 
 	}
 	
+	public String saveFinanceiro() {
+		try {
+			// create a mysql database connection
+			String myDriver = "org.gjt.mm.mysql.Driver";
+			String myUrl = "jdbc:mysql://localhost/dw2";
+			Class.forName(myDriver);
+			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			// the mysql insert statement
+			String query = " insert into financeiro"
+					+ " values (NULL, ?, ?, ?, ?, ?, ?, ?)";
+
+			// create the mysql insert preparedstatement
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, financeiro.getNome());
+			preparedStmt.setString(2, financeiro.getCpf());
+			preparedStmt.setString(3, financeiro.getEmail());
+			preparedStmt.setString(4, financeiro.getTelefone());
+			preparedStmt.setString(5, financeiro.getFatura1());
+			preparedStmt.setString(6, financeiro.getFatura2());
+			preparedStmt.setString(7, financeiro.getFatura3());
+	
+
+			// execute the preparedstatement
+			preparedStmt.execute();
+
+			conn.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception!");
+			System.err.println(e.getMessage());
+		}
+		
+		return "listfinanceiro";
+	}
+	
+	public String listFinanceiro() {
+		try {
+			// create a mysql database connection
+			String myDriver = "org.gjt.mm.mysql.Driver";
+			String myUrl = "jdbc:mysql://localhost/dw2";
+			Class.forName(myDriver);
+			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+				
+				this.financeiroList = new ArrayList<FormFinanceiro>();
+				FormFinanceiro f = new FormFinanceiro();
+				
+				  // our SQL SELECT query. 
+			      // if you only need a few columns, specify them by name instead of using "*"
+			      String query = "SELECT * FROM financeiro";
+
+			      // create the java statement
+			      Statement st = conn.createStatement();
+			      
+			      // execute the query, and get a java resultset
+			      ResultSet rs = st.executeQuery(query);
+			      
+			      // iterate through the java resultset
+			      while (rs.next())
+			      {
+			    	f.setId(rs.getInt("id"));
+			        f.setNome(rs.getString("nome"));
+					f.setCpf(rs.getString("cpf"));
+					f.setEmail(rs.getString("email"));
+					f.setTelefone(rs.getString("telefone"));
+					f.setFatura1(rs.getString("fatura"));
+					f.setFatura2(rs.getString("fatura1"));
+					f.setFatura3(rs.getString("fatura2"));
+					
+					this.financeiroList.add(f);
+			        
+			        // print the results
+					 for (int i=0; i<financeiroList.size(); i++){
+						   System.err.println("Element "+i+financeiroList.get(i));
+						}
+			      }
+			      st.close();
+			    }
+			    catch (Exception e)
+			    {
+			      System.err.println("Got an exception! ");
+			      System.err.println(e.getMessage());
+			    }
+		return "listfinanceiro";
+	}
+	
+	public void deleteFinanceiro(int id){
+		try
+	    {
+	      // create the mysql database connection
+	      String myDriver = "org.gjt.mm.mysql.Driver";
+	      String myUrl = "jdbc:mysql://localhost/dw2";
+	      Class.forName(myDriver);
+	      Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+	      
+	      // create the mysql delete statement.
+	      // i'm deleting the row where the id is "3", which corresponds to my
+	      // "Barney Rubble" record.
+	      String query = "delete from financeiro where id = ?";
+	      PreparedStatement preparedStmt = conn.prepareStatement(query);
+	      preparedStmt.setLong(1, id);
+
+	      // execute the preparedstatement
+	      preparedStmt.execute();
+	      
+	      conn.close();
+	    }
+	    catch (Exception e)
+	    {
+	      System.err.println("Got an exception! ");
+	      System.err.println(e.getMessage());
+	    }
+	
+	}
+	
+	public String updateListFinanceiro(int id) {
+		try {
+			// create a mysql database connection
+			String myDriver = "org.gjt.mm.mysql.Driver";
+			String myUrl = "jdbc:mysql://localhost/dw2";
+			Class.forName(myDriver);
+			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+				
+				this.financeiro = new FormFinanceiro();
+				Produtos p = new Produtos();
+				
+				  // our SQL SELECT query. 
+			      // if you only need a few columns, specify them by name instead of using "*"
+			      String query = "SELECT * FROM financeiro WHERE id = "+id+";";
+
+			      // create the java statement
+			      Statement st = conn.createStatement();
+			      
+			      // execute the query, and get a java resultset
+			      ResultSet rs = st.executeQuery(query);
+			      
+			      // iterate through the java resultset
+			      while (rs.next())
+			      {
+			    	this.financeiro.setId(rs.getInt("id"));
+			        this.financeiro.setNome(rs.getString("nome"));
+					this.financeiro.setCpf(rs.getString("cpf"));
+					this.financeiro.setEmail(rs.getString("email"));
+					this.financeiro.setTelefone(rs.getString("telefone"));
+					this.financeiro.setFatura1(rs.getString("fatura"));
+					this.financeiro.setFatura2(rs.getString("fatura1"));
+					this.financeiro.setFatura3(rs.getString("fatura2"));
+			        // print the results
+					 for (int i=0; i<financeiroList.size(); i++){
+						   System.err.println("Element "+i+financeiroList.get(i));
+						}
+			      }
+			      st.close();
+			    }
+			    catch (Exception e)
+			    {
+			      System.err.println("Got an exception! ");
+			      System.err.println(e.getMessage());
+			    }
+		return "updateformulariofinanceiro";
+	}
+
+	
+	public String updateFinanceiro(int id){
+		try {
+			// create a mysql database connection
+			String myDriver = "org.gjt.mm.mysql.Driver";
+			String myUrl = "jdbc:mysql://localhost/dw2";
+			Class.forName(myDriver);
+			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			// the mysql insert statement
+			String query = "UPDATE financeiro SET  "
+					+ "nome =  ?,"
+					+"cpf =  ?,"
+					+"email =  ?,"
+					+"telefone =  ?,"
+					+"fatura =  ?,"
+					+"fatura1 =  ?,"
+					+"fatura2 =  ? WHERE id = "+id+";";
+
+
+			// create the mysql insert preparedstatement
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, financeiro.getNome());
+			preparedStmt.setString(2, financeiro.getCpf());
+			preparedStmt.setString(3, financeiro.getEmail());
+			preparedStmt.setString(4, financeiro.getTelefone());
+			preparedStmt.setString(5, financeiro.getFatura1());
+			preparedStmt.setString(6, financeiro.getFatura2());
+			preparedStmt.setString(7, financeiro.getFatura3());
+
+			// execute the preparedstatement
+			preparedStmt.execute();
+
+			conn.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception!");
+			System.err.println(e.getMessage());
+		}
+		
+		return "listfinanceiro";
+
+	}
+	
 	public FormComercial getComercial() {
 		return comercial;
 	}
@@ -342,5 +547,13 @@ public class FormularioBean implements Serializable {
 
 	public void setComercialList(List<FormComercial> comercialList) {
 		this.comercialList = comercialList;
+	}
+
+	public List<FormFinanceiro> getFinanceiroList() {
+		return financeiroList;
+	}
+
+	public void setFinanceiroList(List<FormFinanceiro> financeiroList) {
+		this.financeiroList = financeiroList;
 	}
 }
