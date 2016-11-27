@@ -32,19 +32,22 @@ public class FormularioBean implements Serializable {
 	private List<FormComercial> comercialList;
 	private List<FormFinanceiro> financeiroList;
 	private List<FormSuporte> suporteList;
-	
+
 	@PostConstruct
 	public void init() {
 		System.out.println(" Bean executado! ");
+		listComercial();
+		listFinanceiro();
+		listSuporte();
 	}
 
 	public String logado() {
-		if(this.usuario.getLogado() == true){
-			return "formularios";	
+		if (this.usuario.getLogado() == true) {
+			return "formularios";
 		} else {
 			return "login";
 		}
-		
+
 	}
 
 	public String saveComercial() {
@@ -56,8 +59,7 @@ public class FormularioBean implements Serializable {
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
 
 			// the mysql insert statement
-			String query = " insert into comercial"
-					+ " values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String query = " insert into comercial" + " values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			// create the mysql insert preparedstatement
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -80,109 +82,102 @@ public class FormularioBean implements Serializable {
 
 			// execute the preparedstatement
 			preparedStmt.execute();
-
+			this.comercial = new FormComercial();
 			conn.close();
 		} catch (Exception e) {
 			System.err.println("Got an exception!");
 			System.err.println(e.getMessage());
 		}
-		
+
 		return "list";
 	}
-	
-	public String listComercial() {
+
+	public void listComercial() {
+		this.comercialList = new ArrayList<FormComercial>();
 		try {
 			// create a mysql database connection
 			String myDriver = "org.gjt.mm.mysql.Driver";
 			String myUrl = "jdbc:mysql://localhost/dw2";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
-				
-				this.comercialList = new ArrayList<FormComercial>();
+
+			// our SQL SELECT query.
+			// if you only need a few columns, specify them by name instead of
+			// using "*"
+			String query = "SELECT * FROM comercial";
+
+			// create the java statement
+			Statement st = conn.createStatement();
+
+			// execute the query, and get a java resultset
+			ResultSet rs = st.executeQuery(query);
+
+			// iterate through the java resultset
+			while (rs.next()) {
 				FormComercial c = new FormComercial();
 				Produtos p = new Produtos();
-				
-				  // our SQL SELECT query. 
-			      // if you only need a few columns, specify them by name instead of using "*"
-			      String query = "SELECT * FROM comercial";
+				c.setId(rs.getInt("id"));
+				c.setNome(rs.getString("nome"));
+				c.setCpf(rs.getString("cpf"));
+				c.setEmail(rs.getString("email"));
+				c.setTelefone(rs.getString("telefone"));
+				p.setNomeproduto(rs.getString("produto"));
+				p.setValor(rs.getString("valor"));
+				p.setQnt(rs.getString("quantidade"));
+				p.setData(rs.getString("data"));
+				c.setProduto1(p);
+				p = new Produtos();
+				p.setNomeproduto(rs.getString("produto1"));
+				p.setValor(rs.getString("valor1"));
+				p.setQnt(rs.getString("quantidade1"));
+				p.setData(rs.getString("data1"));
+				c.setProduto2(p);
+				p = new Produtos();
+				p.setNomeproduto(rs.getString("produto2"));
+				p.setValor(rs.getString("valor2"));
+				p.setQnt(rs.getString("quantidade2"));
+				p.setData(rs.getString("data2"));
+				c.setProduto3(p);
+				this.comercialList.add(c);
 
-			      // create the java statement
-			      Statement st = conn.createStatement();
-			      
-			      // execute the query, and get a java resultset
-			      ResultSet rs = st.executeQuery(query);
-			      
-			      // iterate through the java resultset
-			      while (rs.next())
-			      {
-			    	c.setId(rs.getInt("id"));
-			        c.setNome(rs.getString("nome"));
-					c.setCpf(rs.getString("cpf"));
-					c.setEmail(rs.getString("email"));
-					c.setTelefone(rs.getString("telefone"));
-					p.setNomeproduto(rs.getString("produto"));
-					p.setValor(rs.getString("valor"));
-					p.setQnt(rs.getString("quantidade"));
-					p.setData(rs.getString("data"));
-					c.setProduto1(p);
-					p = new Produtos();
-					p.setNomeproduto(rs.getString("produto1"));
-					p.setValor(rs.getString("valor1"));
-					p.setQnt(rs.getString("quantidade1"));
-					p.setData(rs.getString("data1"));
-					c.setProduto2(p);
-					p = new Produtos();
-					p.setNomeproduto(rs.getString("produto2"));
-					p.setValor(rs.getString("valor2"));
-					p.setQnt(rs.getString("quantidade2"));
-					p.setData(rs.getString("data2"));
-					c.setProduto3(p);
-					this.comercialList.add(c);
-			        
-			        // print the results
-					 for (int i=0; i<comercialList.size(); i++){
-						   System.err.println("Element "+i+comercialList.get(i));
-						}
-			      }
-			      st.close();
-			    }
-			    catch (Exception e)
-			    {
-			      System.err.println("Got an exception! ");
-			      System.err.println(e.getMessage());
-			    }
-		return "list";
+				// print the results
+				for (int i = 0; i < this.comercialList.size(); i++) {
+					System.err.println("Element " + i + this.comercialList.get(i));
+				}
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
 	}
-	
-	public void deleteComercial(int id){
-		try
-	    {
-	      // create the mysql database connection
-	      String myDriver = "org.gjt.mm.mysql.Driver";
-	      String myUrl = "jdbc:mysql://localhost/dw2";
-	      Class.forName(myDriver);
-	      Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
-	      
-	      // create the mysql delete statement.
-	      // i'm deleting the row where the id is "3", which corresponds to my
-	      // "Barney Rubble" record.
-	      String query = "delete from comercial where id = ?";
-	      PreparedStatement preparedStmt = conn.prepareStatement(query);
-	      preparedStmt.setLong(1, id);
 
-	      // execute the preparedstatement
-	      preparedStmt.execute();
-	      
-	      conn.close();
-	    }
-	    catch (Exception e)
-	    {
-	      System.err.println("Got an exception! ");
-	      System.err.println(e.getMessage());
-	    }
-	
+	public void deleteComercial(int id) {
+		try {
+			// create the mysql database connection
+			String myDriver = "org.gjt.mm.mysql.Driver";
+			String myUrl = "jdbc:mysql://localhost/dw2";
+			Class.forName(myDriver);
+			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			// create the mysql delete statement.
+			// i'm deleting the row where the id is "3", which corresponds to my
+			// "Barney Rubble" record.
+			String query = "delete from comercial where id = ?";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setLong(1, id);
+
+			// execute the preparedstatement
+			preparedStmt.execute();
+
+			conn.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
+
 	}
-	
+
 	public String updateListComercial(int id) {
 		try {
 			// create a mysql database connection
@@ -190,62 +185,60 @@ public class FormularioBean implements Serializable {
 			String myUrl = "jdbc:mysql://localhost/dw2";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
-				
-				this.comercial = new FormComercial();
-				Produtos p = new Produtos();
-				
-				  // our SQL SELECT query. 
-			      // if you only need a few columns, specify them by name instead of using "*"
-			      String query = "SELECT * FROM comercial WHERE id = "+id+";";
 
-			      // create the java statement
-			      Statement st = conn.createStatement();
-			      
-			      // execute the query, and get a java resultset
-			      ResultSet rs = st.executeQuery(query);
-			      
-			      // iterate through the java resultset
-			      while (rs.next())
-			      {
-			    	this.comercial.setId(rs.getInt("id"));
-			        this.comercial.setNome(rs.getString("nome"));
-					this.comercial.setCpf(rs.getString("cpf"));
-					this.comercial.setEmail(rs.getString("email"));
-					this.comercial.setTelefone(rs.getString("telefone"));
-					p.setNomeproduto(rs.getString("produto"));
-					p.setValor(rs.getString("valor"));
-					p.setQnt(rs.getString("quantidade"));
-					p.setData(rs.getString("data"));
-					this.comercial.setProduto1(p);
-					p = new Produtos();
-					p.setNomeproduto(rs.getString("produto1"));
-					p.setValor(rs.getString("valor1"));
-					p.setQnt(rs.getString("quantidade1"));
-					p.setData(rs.getString("data1"));
-					this.comercial.setProduto2(p);
-					p = new Produtos();
-					p.setNomeproduto(rs.getString("produto2"));
-					p.setValor(rs.getString("valor2"));
-					p.setQnt(rs.getString("quantidade2"));
-					p.setData(rs.getString("data2"));
-					this.comercial.setProduto3(p);
-			        
-			        // print the results
-					 for (int i=0; i<comercialList.size(); i++){
-						   System.err.println("Element "+i+comercialList.get(i));
-						}
-			      }
-			      st.close();
-			    }
-			    catch (Exception e)
-			    {
-			      System.err.println("Got an exception! ");
-			      System.err.println(e.getMessage());
-			    }
+			this.comercial = new FormComercial();
+			Produtos p = new Produtos();
+
+			// our SQL SELECT query.
+			// if you only need a few columns, specify them by name instead of
+			// using "*"
+			String query = "SELECT * FROM comercial WHERE id = " + id + ";";
+
+			// create the java statement
+			Statement st = conn.createStatement();
+
+			// execute the query, and get a java resultset
+			ResultSet rs = st.executeQuery(query);
+
+			// iterate through the java resultset
+			while (rs.next()) {
+				this.comercial.setId(rs.getInt("id"));
+				this.comercial.setNome(rs.getString("nome"));
+				this.comercial.setCpf(rs.getString("cpf"));
+				this.comercial.setEmail(rs.getString("email"));
+				this.comercial.setTelefone(rs.getString("telefone"));
+				p.setNomeproduto(rs.getString("produto"));
+				p.setValor(rs.getString("valor"));
+				p.setQnt(rs.getString("quantidade"));
+				p.setData(rs.getString("data"));
+				this.comercial.setProduto1(p);
+				p = new Produtos();
+				p.setNomeproduto(rs.getString("produto1"));
+				p.setValor(rs.getString("valor1"));
+				p.setQnt(rs.getString("quantidade1"));
+				p.setData(rs.getString("data1"));
+				this.comercial.setProduto2(p);
+				p = new Produtos();
+				p.setNomeproduto(rs.getString("produto2"));
+				p.setValor(rs.getString("valor2"));
+				p.setQnt(rs.getString("quantidade2"));
+				p.setData(rs.getString("data2"));
+				this.comercial.setProduto3(p);
+
+				// print the results
+				for (int i = 0; i < comercialList.size(); i++) {
+					System.err.println("Element " + i + comercialList.get(i));
+				}
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
 		return "updateformulariocomercial";
 	}
-	
-	public String updateComercial(int id){
+
+	public String updateComercial(int id) {
 		try {
 			// create a mysql database connection
 			String myDriver = "org.gjt.mm.mysql.Driver";
@@ -254,24 +247,10 @@ public class FormularioBean implements Serializable {
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
 
 			// the mysql insert statement
-			String query = "UPDATE comercial SET  "
-					+ "nome =  ?,"
-					+"cpf =  ?,"
-					+"email =  ?,"
-					+"telefone =  ?,"
-					+"produto =  ?,"
-					+"valor =  ?,"
-					+"quantidade =  ?,"
-					+"data =  ?,"
-					+"produto1 =  ?,"
-					+"valor1 =  ?,"
-					+"quantidade1 =  ?,"
-					+"data1 =  ?,"
-					+"produto2 =  ?,"
-					+"valor2 =  ?,"
-					+"quantidade2 =  ?,"
-					+"data2 =  ? WHERE id = "+id+";";
-
+			String query = "UPDATE comercial SET  " + "nome =  ?," + "cpf =  ?," + "email =  ?," + "telefone =  ?,"
+					+ "produto =  ?," + "valor =  ?," + "quantidade =  ?," + "data =  ?," + "produto1 =  ?,"
+					+ "valor1 =  ?," + "quantidade1 =  ?," + "data1 =  ?," + "produto2 =  ?," + "valor2 =  ?,"
+					+ "quantidade2 =  ?," + "data2 =  ? WHERE id = " + id + ";";
 
 			// create the mysql insert preparedstatement
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -300,11 +279,11 @@ public class FormularioBean implements Serializable {
 			System.err.println("Got an exception!");
 			System.err.println(e.getMessage());
 		}
-		
+
 		return "list";
 
 	}
-	
+
 	public String saveFinanceiro() {
 		try {
 			// create a mysql database connection
@@ -314,8 +293,7 @@ public class FormularioBean implements Serializable {
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
 
 			// the mysql insert statement
-			String query = " insert into financeiro"
-					+ " values (NULL, ?, ?, ?, ?, ?, ?, ?)";
+			String query = " insert into financeiro" + " values (NULL, ?, ?, ?, ?, ?, ?, ?)";
 
 			// create the mysql insert preparedstatement
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -326,99 +304,91 @@ public class FormularioBean implements Serializable {
 			preparedStmt.setString(5, financeiro.getFatura1());
 			preparedStmt.setString(6, financeiro.getFatura2());
 			preparedStmt.setString(7, financeiro.getFatura3());
-	
 
 			// execute the preparedstatement
 			preparedStmt.execute();
-
+			this.financeiro = new FormFinanceiro();
 			conn.close();
 		} catch (Exception e) {
 			System.err.println("Got an exception!");
 			System.err.println(e.getMessage());
 		}
-		
+
 		return "listfinanceiro";
 	}
-	
-	public String listFinanceiro() {
+
+	public void listFinanceiro() {
+		this.financeiroList = new ArrayList<FormFinanceiro>();
 		try {
 			// create a mysql database connection
 			String myDriver = "org.gjt.mm.mysql.Driver";
 			String myUrl = "jdbc:mysql://localhost/dw2";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
-				
-				this.financeiroList = new ArrayList<FormFinanceiro>();
+
+			// our SQL SELECT query.
+			// if you only need a few columns, specify them by name instead of
+			// using "*"
+			String query = "SELECT * FROM financeiro";
+
+			// create the java statement
+			Statement st = conn.createStatement();
+
+			// execute the query, and get a java resultset
+			ResultSet rs = st.executeQuery(query);
+
+			// iterate through the java resultset
+			while (rs.next()) {
 				FormFinanceiro f = new FormFinanceiro();
-				
-				  // our SQL SELECT query. 
-			      // if you only need a few columns, specify them by name instead of using "*"
-			      String query = "SELECT * FROM financeiro";
+				f.setId(rs.getInt("id"));
+				f.setNome(rs.getString("nome"));
+				f.setCpf(rs.getString("cpf"));
+				f.setEmail(rs.getString("email"));
+				f.setTelefone(rs.getString("telefone"));
+				f.setFatura1(rs.getString("fatura"));
+				f.setFatura2(rs.getString("fatura1"));
+				f.setFatura3(rs.getString("fatura2"));
 
-			      // create the java statement
-			      Statement st = conn.createStatement();
-			      
-			      // execute the query, and get a java resultset
-			      ResultSet rs = st.executeQuery(query);
-			      
-			      // iterate through the java resultset
-			      while (rs.next())
-			      {
-			    	f.setId(rs.getInt("id"));
-			        f.setNome(rs.getString("nome"));
-					f.setCpf(rs.getString("cpf"));
-					f.setEmail(rs.getString("email"));
-					f.setTelefone(rs.getString("telefone"));
-					f.setFatura1(rs.getString("fatura"));
-					f.setFatura2(rs.getString("fatura1"));
-					f.setFatura3(rs.getString("fatura2"));
-					
-					this.financeiroList.add(f);
-			        
-			        // print the results
-					 for (int i=0; i<financeiroList.size(); i++){
-						   System.err.println("Element "+i+financeiroList.get(i));
-						}
-			      }
-			      st.close();
-			    }
-			    catch (Exception e)
-			    {
-			      System.err.println("Got an exception! ");
-			      System.err.println(e.getMessage());
-			    }
-		return "listfinanceiro";
-	}
-	
-	public void deleteFinanceiro(int id){
-		try
-	    {
-	      // create the mysql database connection
-	      String myDriver = "org.gjt.mm.mysql.Driver";
-	      String myUrl = "jdbc:mysql://localhost/dw2";
-	      Class.forName(myDriver);
-	      Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
-	      
-	      // create the mysql delete statement.
-	      // i'm deleting the row where the id is "3", which corresponds to my
-	      // "Barney Rubble" record.
-	      String query = "delete from financeiro where id = ?";
-	      PreparedStatement preparedStmt = conn.prepareStatement(query);
-	      preparedStmt.setLong(1, id);
+				this.financeiroList.add(f);
 
-	      // execute the preparedstatement
-	      preparedStmt.execute();
-	      
-	      conn.close();
-	    }
-	    catch (Exception e)
-	    {
-	      System.err.println("Got an exception! ");
-	      System.err.println(e.getMessage());
-	    }
-	
+				// print the results
+				for (int i = 0; i < financeiroList.size(); i++) {
+					System.err.println("Element " + i + financeiroList.get(i));
+				}
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
 	}
-	
+
+	public void deleteFinanceiro(int id) {
+		try {
+			// create the mysql database connection
+			String myDriver = "org.gjt.mm.mysql.Driver";
+			String myUrl = "jdbc:mysql://localhost/dw2";
+			Class.forName(myDriver);
+			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			// create the mysql delete statement.
+			// i'm deleting the row where the id is "3", which corresponds to my
+			// "Barney Rubble" record.
+			String query = "delete from financeiro where id = ?";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setLong(1, id);
+
+			// execute the preparedstatement
+			preparedStmt.execute();
+
+			conn.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
+
+	}
+
 	public String updateListFinanceiro(int id) {
 		try {
 			// create a mysql database connection
@@ -426,48 +396,45 @@ public class FormularioBean implements Serializable {
 			String myUrl = "jdbc:mysql://localhost/dw2";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
-				
-				this.financeiro = new FormFinanceiro();
-				Produtos p = new Produtos();
-				
-				  // our SQL SELECT query. 
-			      // if you only need a few columns, specify them by name instead of using "*"
-			      String query = "SELECT * FROM financeiro WHERE id = "+id+";";
 
-			      // create the java statement
-			      Statement st = conn.createStatement();
-			      
-			      // execute the query, and get a java resultset
-			      ResultSet rs = st.executeQuery(query);
-			      
-			      // iterate through the java resultset
-			      while (rs.next())
-			      {
-			    	this.financeiro.setId(rs.getInt("id"));
-			        this.financeiro.setNome(rs.getString("nome"));
-					this.financeiro.setCpf(rs.getString("cpf"));
-					this.financeiro.setEmail(rs.getString("email"));
-					this.financeiro.setTelefone(rs.getString("telefone"));
-					this.financeiro.setFatura1(rs.getString("fatura"));
-					this.financeiro.setFatura2(rs.getString("fatura1"));
-					this.financeiro.setFatura3(rs.getString("fatura2"));
-			        // print the results
-					 for (int i=0; i<financeiroList.size(); i++){
-						   System.err.println("Element "+i+financeiroList.get(i));
-						}
-			      }
-			      st.close();
-			    }
-			    catch (Exception e)
-			    {
-			      System.err.println("Got an exception! ");
-			      System.err.println(e.getMessage());
-			    }
+			this.financeiro = new FormFinanceiro();
+			Produtos p = new Produtos();
+
+			// our SQL SELECT query.
+			// if you only need a few columns, specify them by name instead of
+			// using "*"
+			String query = "SELECT * FROM financeiro WHERE id = " + id + ";";
+
+			// create the java statement
+			Statement st = conn.createStatement();
+
+			// execute the query, and get a java resultset
+			ResultSet rs = st.executeQuery(query);
+
+			// iterate through the java resultset
+			while (rs.next()) {
+				this.financeiro.setId(rs.getInt("id"));
+				this.financeiro.setNome(rs.getString("nome"));
+				this.financeiro.setCpf(rs.getString("cpf"));
+				this.financeiro.setEmail(rs.getString("email"));
+				this.financeiro.setTelefone(rs.getString("telefone"));
+				this.financeiro.setFatura1(rs.getString("fatura"));
+				this.financeiro.setFatura2(rs.getString("fatura1"));
+				this.financeiro.setFatura3(rs.getString("fatura2"));
+				// print the results
+				for (int i = 0; i < financeiroList.size(); i++) {
+					System.err.println("Element " + i + financeiroList.get(i));
+				}
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
 		return "updateformulariofinanceiro";
 	}
 
-	
-	public String updateFinanceiro(int id){
+	public String updateFinanceiro(int id) {
 		try {
 			// create a mysql database connection
 			String myDriver = "org.gjt.mm.mysql.Driver";
@@ -476,15 +443,8 @@ public class FormularioBean implements Serializable {
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
 
 			// the mysql insert statement
-			String query = "UPDATE financeiro SET  "
-					+ "nome =  ?,"
-					+"cpf =  ?,"
-					+"email =  ?,"
-					+"telefone =  ?,"
-					+"fatura =  ?,"
-					+"fatura1 =  ?,"
-					+"fatura2 =  ? WHERE id = "+id+";";
-
+			String query = "UPDATE financeiro SET  " + "nome =  ?," + "cpf =  ?," + "email =  ?," + "telefone =  ?,"
+					+ "fatura =  ?," + "fatura1 =  ?," + "fatura2 =  ? WHERE id = " + id + ";";
 
 			// create the mysql insert preparedstatement
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -504,11 +464,11 @@ public class FormularioBean implements Serializable {
 			System.err.println("Got an exception!");
 			System.err.println(e.getMessage());
 		}
-		
+
 		return "listfinanceiro";
 
 	}
-	
+
 	public String saveSuporte() {
 		try {
 			// create a mysql database connection
@@ -518,8 +478,7 @@ public class FormularioBean implements Serializable {
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
 
 			// the mysql insert statement
-			String query = " insert into suporte"
-					+ " values (NULL, ?, ?, ?, ?, ?)";
+			String query = " insert into suporte" + " values (NULL, ?, ?, ?, ?, ?)";
 
 			// create the mysql insert preparedstatement
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -528,97 +487,88 @@ public class FormularioBean implements Serializable {
 			preparedStmt.setString(3, suporte.getEmail());
 			preparedStmt.setString(4, suporte.getTelefone());
 			preparedStmt.setString(5, suporte.getProduto());
-	
 
 			// execute the preparedstatement
 			preparedStmt.execute();
-
+			suporte = new FormSuporte();
 			conn.close();
 		} catch (Exception e) {
 			System.err.println("Got an exception!");
 			System.err.println(e.getMessage());
 		}
-		
+
 		return "listsuporte";
 	}
-	
-	public String listSuporte() {
+
+	public void listSuporte() {
+		this.suporteList = new ArrayList<FormSuporte>();
 		try {
 			// create a mysql database connection
 			String myDriver = "org.gjt.mm.mysql.Driver";
 			String myUrl = "jdbc:mysql://localhost/dw2";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
-				
-				this.suporteList = new ArrayList<FormSuporte>();
+
+			// our SQL SELECT query.
+			// if you only need a few columns, specify them by name instead of
+			// using "*"
+			String query = "SELECT * FROM suporte";
+
+			// create the java statement
+			Statement st = conn.createStatement();
+
+			// execute the query, and get a java resultset
+			ResultSet rs = st.executeQuery(query);
+
+			// iterate through the java resultset
+			while (rs.next()) {
 				FormSuporte s = new FormSuporte();
-				
-				  // our SQL SELECT query. 
-			      // if you only need a few columns, specify them by name instead of using "*"
-			      String query = "SELECT * FROM suporte";
+				s.setId(rs.getInt("id"));
+				s.setNome(rs.getString("nome"));
+				s.setCpf(rs.getString("cpf"));
+				s.setEmail(rs.getString("email"));
+				s.setTelefone(rs.getString("telefone"));
+				s.setProduto(rs.getString("produto"));
+				this.suporteList.add(s);
 
-			      // create the java statement
-			      Statement st = conn.createStatement();
-			      
-			      // execute the query, and get a java resultset
-			      ResultSet rs = st.executeQuery(query);
-			      
-			      // iterate through the java resultset
-			      while (rs.next())
-			      {
-			    	s.setId(rs.getInt("id"));
-			        s.setNome(rs.getString("nome"));
-					s.setCpf(rs.getString("cpf"));
-					s.setEmail(rs.getString("email"));
-					s.setTelefone(rs.getString("telefone"));
-					s.setProduto(rs.getString("produto"));
-					
-					this.suporteList.add(s);
-			        
-			        // print the results
-					 for (int i=0; i<suporteList.size(); i++){
-						   System.err.println("Element "+i+suporteList.get(i));
-						}
-			      }
-			      st.close();
-			    }
-			    catch (Exception e)
-			    {
-			      System.err.println("Got an exception! ");
-			      System.err.println(e.getMessage());
-			    }
-		return "listsuporte";
+				// print the results
+				for (int i = 0; i < suporteList.size(); i++) {
+					System.err.println("Element " + i + suporteList.get(i).getId());
+				}
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
 	}
-	
-	public void deleteSuporte(int id){
-		try
-	    {
-	      // create the mysql database connection
-	      String myDriver = "org.gjt.mm.mysql.Driver";
-	      String myUrl = "jdbc:mysql://localhost/dw2";
-	      Class.forName(myDriver);
-	      Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
-	      
-	      // create the mysql delete statement.
-	      // i'm deleting the row where the id is "3", which corresponds to my
-	      // "Barney Rubble" record.
-	      String query = "delete from suporte where id = ?";
-	      PreparedStatement preparedStmt = conn.prepareStatement(query);
-	      preparedStmt.setLong(1, id);
 
-	      // execute the preparedstatement
-	      preparedStmt.execute();
-	      
-	      conn.close();
-	    }
-	    catch (Exception e)
-	    {
-	      System.err.println("Got an exception! ");
-	      System.err.println(e.getMessage());
-	    }
-	
+	public void deleteSuporte(int id) {
+		try {
+			// create the mysql database connection
+			String myDriver = "org.gjt.mm.mysql.Driver";
+			String myUrl = "jdbc:mysql://localhost/dw2";
+			Class.forName(myDriver);
+			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			// create the mysql delete statement.
+			// i'm deleting the row where the id is "3", which corresponds to my
+			// "Barney Rubble" record.
+			String query = "delete from suporte where id = ?";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setLong(1, id);
+
+			// execute the preparedstatement
+			preparedStmt.execute();
+
+			conn.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
+
 	}
-	
+
 	public String updateListSuporte(int id) {
 		try {
 			// create a mysql database connection
@@ -626,45 +576,42 @@ public class FormularioBean implements Serializable {
 			String myUrl = "jdbc:mysql://localhost/dw2";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
-				
-				this.suporte = new FormSuporte();
-				
-				  // our SQL SELECT query. 
-			      // if you only need a few columns, specify them by name instead of using "*"
-			      String query = "SELECT * FROM suporte WHERE id = "+id+";";
 
-			      // create the java statement
-			      Statement st = conn.createStatement();
-			      
-			      // execute the query, and get a java resultset
-			      ResultSet rs = st.executeQuery(query);
-			      
-			      // iterate through the java resultset
-			      while (rs.next())
-			      {
-			    	this.suporte.setId(rs.getInt("id"));
-			        this.suporte.setNome(rs.getString("nome"));
-					this.suporte.setCpf(rs.getString("cpf"));
-					this.suporte.setEmail(rs.getString("email"));
-					this.suporte.setTelefone(rs.getString("telefone"));
-					this.suporte.setProduto(rs.getString("produto"));
-			        // print the results
-					 for (int i=0; i<suporteList.size(); i++){
-						   System.err.println("Element "+i+suporteList.get(i));
-						}
-			      }
-			      st.close();
-			    }
-			    catch (Exception e)
-			    {
-			      System.err.println("Got an exception! ");
-			      System.err.println(e.getMessage());
-			    }
+			this.suporte = new FormSuporte();
+
+			// our SQL SELECT query.
+			// if you only need a few columns, specify them by name instead of
+			// using "*"
+			String query = "SELECT * FROM suporte WHERE id = " + id + ";";
+
+			// create the java statement
+			Statement st = conn.createStatement();
+
+			// execute the query, and get a java resultset
+			ResultSet rs = st.executeQuery(query);
+
+			// iterate through the java resultset
+			while (rs.next()) {
+				this.suporte.setId(rs.getInt("id"));
+				this.suporte.setNome(rs.getString("nome"));
+				this.suporte.setCpf(rs.getString("cpf"));
+				this.suporte.setEmail(rs.getString("email"));
+				this.suporte.setTelefone(rs.getString("telefone"));
+				this.suporte.setProduto(rs.getString("produto"));
+				// print the results
+				for (int i = 0; i < suporteList.size(); i++) {
+					System.err.println("Element " + i + suporteList.get(i));
+				}
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+		}
 		return "updateformulariosuporte";
 	}
 
-	
-	public String updateSuporte(int id){
+	public String updateSuporte(int id) {
 		try {
 			// create a mysql database connection
 			String myDriver = "org.gjt.mm.mysql.Driver";
@@ -673,13 +620,8 @@ public class FormularioBean implements Serializable {
 			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
 
 			// the mysql insert statement
-			String query = "UPDATE suporte SET  "
-					+ "nome =  ?,"
-					+"cpf =  ?,"
-					+"email =  ?,"
-					+"telefone =  ?,"
-					+"produto =  ? WHERE id = "+id+";";
-
+			String query = "UPDATE suporte SET  " + "nome =  ?," + "cpf =  ?," + "email =  ?," + "telefone =  ?,"
+					+ "produto =  ? WHERE id = " + id + ";";
 
 			// create the mysql insert preparedstatement
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -697,11 +639,11 @@ public class FormularioBean implements Serializable {
 			System.err.println("Got an exception!");
 			System.err.println(e.getMessage());
 		}
-		
+
 		return "listsuporte";
 
 	}
-	
+
 	public FormComercial getComercial() {
 		return comercial;
 	}
