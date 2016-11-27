@@ -21,39 +21,17 @@
 	<ui:include src="/WEB-INF/menu.xhtml" />		
 	<h:form a:class='form_custom text-center element-animation'>
 		<br>Nome: </br>
-		<h:inputText value="#{formularioBean.comercial.nome}" a:class='form-control text-center' type='text' id='nome'	name='nome'></h:inputText>
+		<h:inputText value="#{formularioBean.suporte.nome}" a:class='form-control text-center' type='text' id='nome'	name='nome'></h:inputText>
 		<br> CPF: </br>
-		<h:inputText value="#{formularioBean.comercial.cpf}" a:class='form-control text-center' type='text' id='cpf' name='cpf' a:required="required"></h:inputText>
+		<h:inputText value="#{formularioBean.suporte.cpf}" a:class='form-control text-center' type='text' id='cpf' name='cpf' a:required="required"></h:inputText>
 		<br> Email: </br>
-		<h:inputText value="#{formularioBean.comercial.email}" type='email' a:class='form-control text-center' id='email' name='email' a:required="required"></h:inputText>
+		<h:inputText value="#{formularioBean.suporte.email}" type='email' a:class='form-control text-center' id='email' name='email' a:required="required"></h:inputText>
 		<br> telefone: </br>
-		<h:inputText value="#{formularioBean.comercial.telefone}" type='text' a:class='form-control text-center' id='telefone' name='telefone'></h:inputText>
+		<h:inputText value="#{formularioBean.suporte.telefone}" type='text' a:class='form-control text-center' id='telefone' name='telefone'></h:inputText>
 		<br>Produto 1: </br>
-		<h:inputText value="#{formularioBean.comercial.produto1.nomeproduto}" type='text' a:class='form-control text-center' id='prod1' name='prod1'></h:inputText>
-		 <br> Valor: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto1.valor}" type='text' a:class='form-control text-center' id='vl1' name='vl1'></h:inputText>
-		 <br> Quantidade: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto1.qnt}" a:class='form-control text-center' type='text' id='qtd1' name='qtd1'></h:inputText>
-		 <br> Data: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto1.data}" a:class='form-control text-center' type='text' id='dt1' name='dt1'></h:inputText>
-		 <br>Produto 2: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto2.nomeproduto}" a:class='form-control text-center' type='text' id='prod2' name='prod2'></h:inputText>
-		 <br>Valor: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto2.valor}" a:class='form-control text-center' type='text' id='vl2' name='vl2'></h:inputText>
-		 <br>Quantidade: </br>
-		<h:inputText value="#{formularioBean.comercial.produto2.qnt}" a:class='form-control text-center' type='text' id='qtd2' name='qtd2'></h:inputText>
-		 <br>Data: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto2.data}" a:class='form-control text-center' type='text' id='dt2' name='dt2'></h:inputText>
-		<br>Produto 3: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto3.nomeproduto}" a:class='form-control text-center' type='text' id='prod3' name='prod3'></h:inputText>
-		<br> Valor: </br>
-		<h:inputText value="#{formularioBean.comercial.produto3.valor}" a:class='form-control text-center' type='text' id='vl3' name='vl3'></h:inputText>
-		<br> Quantidade: </br>
-		<h:inputText value="#{formularioBean.comercial.produto3.qnt}" a:class='form-control text-center' type='text' id='qtd3' name='qtd3'></h:inputText>
-		<br> Data: </br>
-		<h:inputText value="#{formularioBean.comercial.produto3.data}" a:class='form-control text-center' type='text' id='dt3' name='dt3'></h:inputText>
-		<br></br>
-		<h:commandButton action="#{formularioBean.updateComercial(formularioBean.comercial.id)}" a:class='btn btn-default' value='Atualizar'></h:commandButton>
+		<h:inputText value="#{formularioBean.suporte.produto}" type='text' a:class='form-control text-center' id='prod1' name='prod1'></h:inputText>
+			<br></br>
+		<h:commandButton action="#{formularioBean.updateSuporte(formularioBean.suporte.id)}" a:class='btn btn-default' value='Atualizar'></h:commandButton>
 		</h:form>																																							
 </h:body>
 </html>

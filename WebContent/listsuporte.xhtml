@@ -17,115 +17,45 @@
 	<h:outputStylesheet library="css" name="custom.css" />
 	<h:outputStylesheet library="css" name="minhas_animacoes.css" />
 </h:head>
-<f:event listener="#{formularioBean.listComercial()}"
-	type="preRenderView" />
+<f:event listener="#{formularioBean.listSuporte()}" type="preRenderView" />
 <h:body>
 	<ui:include src="/WEB-INF/menu.xhtml" />
-	<p:dataTable value="#{formularioBean.comercialList}" var="comercial">
+	<p:dataTable value="#{formularioBean.suporteList}" var="suporte">
 		<p:column>
 			<f:facet name="header">
 				<h:outputText value="Nome"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{comercial.nome}"></h:outputText>
+			<h:outputText value="#{suporte.nome}"></h:outputText>
 		</p:column>
 		<p:column>
 			<f:facet name="header">
 				<h:outputText value="CPF"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{comercial.cpf}"></h:outputText>
+			<h:outputText value="#{suporte.cpf}"></h:outputText>
 		</p:column>
 		<p:column>
 			<f:facet name="header">
 				<h:outputText value="Telefone"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{comercial.telefone}"></h:outputText>
+			<h:outputText value="#{suporte.telefone}"></h:outputText>
 		</p:column>
 		<p:column>
 			<f:facet name="header">
 				<h:outputText value="Produto"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{comercial.produto1.nomeproduto}"></h:outputText>
+			<h:outputText value="#{suporte.produto}"></h:outputText>
 		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Valor"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto1.valor}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Quantidade"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto1.qnt}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Data"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto1.data}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Produto"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto2.nomeproduto}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Valor"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto2.valor}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Quantidade"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto2.qnt}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Data"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto2.data}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Produto"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto3.nomeproduto}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Valor"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto3.valor}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Quantidade"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto3.qnt}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Data"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{comercial.produto3.data}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Data"></h:outputText>
-			</f:facet>
+			<p:column>
 			<h:form>
 				<h:commandButton
-					action="#{formularioBean.deleteComercial(comercial.id)}"
+					action="#{formularioBean.deleteSuporte(suporte.id)}"
 					a:class="btn btn-danger">
 					<span a:class='glyphicon glyphicon-remove-sign'></span>
 				</h:commandButton>
 			</h:form>
 			<h:form>
 				<h:commandButton
-					action="#{formularioBean.updateListComercial(comercial.id)}"
+					action="#{formularioBean.updateListSuporte(suporte.id)}"
 					a:class="btn btn-success">
 					<span a:class='glyphicon glyphicon-remove-sign'></span>
 				</h:commandButton>

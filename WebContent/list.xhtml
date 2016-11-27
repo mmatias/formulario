@@ -17,8 +17,7 @@
 	<h:outputStylesheet library="css" name="custom.css" />
 	<h:outputStylesheet library="css" name="minhas_animacoes.css" />
 </h:head>
-<f:event listener="#{formularioBean.listComercial()}"
-	type="preRenderView" />
+<f:event listener="#{formularioBean.listComercial()}" type="preRenderView" />
 <h:body>
 	<ui:include src="/WEB-INF/menu.xhtml" />
 	<p:dataTable value="#{formularioBean.comercialList}" var="comercial">
