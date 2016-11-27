@@ -27,7 +27,7 @@ public class Usuarios {
 	
 	public String logar() {
 		if (login.equals("123") && senha.equals("123")) {
-			return "resultado";
+			return "inicial";
 		} else {
 			return "login";
 		}

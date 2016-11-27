@@ -62,7 +62,7 @@
 		<br> Data: </br>
 		<h:inputText value="#{formularioBean.comercial.produto3.data}" a:class='form-control text-center' type='text' id='dt3' name='dt3'></h:inputText>
 		<br></br>
-		<h:commandButton action="#{formularioBean.saveComercial()}" a:class='btn btn-default' value='Salvar'></h:commandButton>
+		<h:commandButton action="#{formularioBean.updateComercial(formularioBean.comercial.id)}" a:class='btn btn-default' value='Atualizar'></h:commandButton>
 		</h:form>																																							
 </h:body>
 </html>

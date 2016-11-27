@@ -1,10 +1,17 @@
 package com.managedbean;
 
 public class FormComercial extends Pessoas{
+	private int id;
 	private Produtos produto1 = new Produtos();
 	private Produtos produto2 = new Produtos();
 	private Produtos produto3 = new Produtos();
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public Produtos getProduto1() {
 		return produto1;
 	}
