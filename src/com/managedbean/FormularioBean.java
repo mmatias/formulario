@@ -49,6 +49,18 @@ public class FormularioBean implements Serializable {
 		}
 
 	}
+	
+	public void criaComercial(){
+		this.comercial = new FormComercial();
+	}
+	
+	public void criaFinanceiro(){
+		this.financeiro = new FormFinanceiro();
+	}
+	
+	public void criaSuporte(){
+		this.suporte = new FormSuporte();
+	}
 
 	public String saveComercial() {
 		try {
@@ -82,7 +94,7 @@ public class FormularioBean implements Serializable {
 
 			// execute the preparedstatement
 			preparedStmt.execute();
-			this.comercial = new FormComercial();
+			comercial = new FormComercial();
 			conn.close();
 		} catch (Exception e) {
 			System.err.println("Got an exception!");
@@ -307,7 +319,7 @@ public class FormularioBean implements Serializable {
 
 			// execute the preparedstatement
 			preparedStmt.execute();
-			this.financeiro = new FormFinanceiro();
+			financeiro = new FormFinanceiro();
 			conn.close();
 		} catch (Exception e) {
 			System.err.println("Got an exception!");
