@@ -11,7 +11,13 @@
 </h:head>
 <h:body>
 <h:form>
-	 <h:outputText value="Boa tarde #{formularioBean.usuario.login} #{formularioBean.usuario.senha} #{formularioBean.comercial.produto}" />
+	 <h:inputText id="name" value="#{formularioBean.comercial.nome}" required="true">
+<f:validateLength 
+           minimum="3"
+           maximum="6"/>
+</h:inputText>
+<h:commandButton value="submit"></h:commandButton>
+<h:message for="name" id="msg"/>
 </h:form>
 </h:body>
 </html>

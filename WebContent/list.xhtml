@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<title>JSF 2.0 Hello World</title>
 	<h:outputScript name="jquery.js" library="js" />
@@ -16,110 +17,120 @@
 	<h:outputStylesheet library="css" name="custom.css" />
 	<h:outputStylesheet library="css" name="minhas_animacoes.css" />
 </h:head>
-<f:event listener="#{formularioBean.listComercial()}" type="preRenderView" />
-<h:body>		
-		<p:dataTable value="#{formularioBean.comercialList}" var="comercial">
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Nome"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.nome}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="CPF"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.cpf}"></h:outputText>
-	</p:column>	
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Telefone"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.telefone}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Produto"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto1.nomeproduto}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Valor"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto1.valor}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Quantidade"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto1.qnt}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Data"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto1.data}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Produto"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto2.nomeproduto}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Valor"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto2.valor}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Quantidade"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto2.qnt}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Data"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto2.data}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Produto"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto3.nomeproduto}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Valor"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto3.valor}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Quantidade"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto3.qnt}"></h:outputText>
-	</p:column>
-	<p:column>
-		<f:facet name="header">
-			<h:outputText value="Data"></h:outputText>
-		</f:facet>
-		<h:outputText value="#{comercial.produto3.data}"></h:outputText>
-	</p:column>
+<f:event listener="#{formularioBean.listComercial()}"
+	type="preRenderView" />
+<h:body>
+	<ui:include src="/WEB-INF/menu.xhtml" />
+	<p:dataTable value="#{formularioBean.comercialList}" var="comercial">
 		<p:column>
-		<f:facet name="header">
-			<h:outputText value="Data"></h:outputText>
-		</f:facet>
-		<h:form>
-			<h:commandButton action="#{formularioBean.deleteComercial(comercial.id)}" a:class="btn btn-danger"><span a:class='glyphicon glyphicon-remove-sign'></span></h:commandButton>
-		</h:form>
-		<h:form>
-			<h:commandButton action="#{formularioBean.updateListComercial(comercial.id)}" a:class="btn btn-success"><span a:class='glyphicon glyphicon-remove-sign'></span></h:commandButton>
-		</h:form>
+			<f:facet name="header">
+				<h:outputText value="Nome"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.nome}"></h:outputText>
 		</p:column>
-</p:dataTable>																																						
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="CPF"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.cpf}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Telefone"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.telefone}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Produto"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto1.nomeproduto}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Valor"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto1.valor}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Quantidade"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto1.qnt}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Data"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto1.data}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Produto"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto2.nomeproduto}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Valor"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto2.valor}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Quantidade"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto2.qnt}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Data"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto2.data}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Produto"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto3.nomeproduto}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Valor"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto3.valor}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Quantidade"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto3.qnt}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Data"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{comercial.produto3.data}"></h:outputText>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Data"></h:outputText>
+			</f:facet>
+			<h:form>
+				<h:commandButton
+					action="#{formularioBean.deleteComercial(comercial.id)}"
+					a:class="btn btn-danger">
+					<span a:class='glyphicon glyphicon-remove-sign'></span>
+				</h:commandButton>
+			</h:form>
+			<h:form>
+				<h:commandButton
+					action="#{formularioBean.updateListComercial(comercial.id)}"
+					a:class="btn btn-success">
+					<span a:class='glyphicon glyphicon-remove-sign'></span>
+				</h:commandButton>
+			</h:form>
+		</p:column>
+	</p:dataTable>
 </h:body>
 </html>

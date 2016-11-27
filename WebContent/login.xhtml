@@ -23,10 +23,11 @@
 				<div class="form-group has-feedback">
 					<span class="glyphicon glyphicon-user"></span> <label
 						for="prontuario_id" class="control-label">Login</label>
-					<h:inputText value="#{formularioBean.usuario.login}"
+					<h:inputText id="usuario" value="#{formularioBean.usuario.login}"
 						styleClass="form-control input-lg" a:placeholder="Digite o login"
 						a:data-error="Por favor, informe um prontuário válido"
-						a:required="required"></h:inputText>
+						required="true" requiredMessage="Usuário em Branco">
+					</h:inputText>
 					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -34,10 +35,12 @@
 				<div class="form-group has-feedback">
 					<span class="glyphicon glyphicon-list-alt"></span> <label
 						for="senha" class="control-label">Senha</label>
-					<h:inputText value="#{formularioBean.usuario.senha}" a:type="password"
-						styleClass="form-control input-lg"
+					<h:inputText id="senha" value="#{formularioBean.usuario.senha}"
+						a:type="password" styleClass="form-control input-lg"
 						a:data-error="Por favor, preencha novamente."
-						a:placeholder="Digite a senha" a:required="required"></h:inputText>
+						a:placeholder="Digite a senha" required="true"
+						requiredMessage="Senha em Branco">
+					</h:inputText>
 					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -47,6 +50,8 @@
 						value="Entrar" action="#{formularioBean.usuario.logar()}" />
 				</div>
 			</h:form>
+			<h:messages id="errors1"/>
+			<h:outputText value="#{formularioBean.usuario.erro}"></h:outputText>
 		</div>
 	</div>
 </h:body>

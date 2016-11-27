@@ -36,12 +36,13 @@ public class FormularioBean implements Serializable {
 		System.out.println(" Bean executado! ");
 	}
 
-	public String com() {
-		return "formulariocomercial";
-	}
-
-	public String teste() {
-		return "resultado";
+	public String logado() {
+		if(this.usuario.getLogado() == true){
+			return "formularios";	
+		} else {
+			return "login";
+		}
+		
 	}
 
 	public String saveComercial() {
