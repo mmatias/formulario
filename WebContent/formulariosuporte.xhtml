@@ -22,16 +22,20 @@
 <h:body>
 <ui:include src="/WEB-INF/menu.xhtml" />
 	<h:form a:class='form_custom text-center element-animation'>
+	<h:messages id="erros"></h:messages>
 		<br>Nome: </br>
-		<h:inputText value="#{formularioBean.suporte.nome}" a:class='form-control text-center' type='text' id='nome'	name='nome'></h:inputText>
+		<h:inputText value="#{formularioBean.suporte.nome}" a:class='form-control text-center' type='text' id='nome' name='nome' required="true" requiredMessage="Nome em Branco"></h:inputText>
 		<br> CPF: </br>
-		<h:inputText value="#{formularioBean.suporte.cpf}" a:class='form-control text-center' type='text' id='cpf' name='cpf' a:required="required"></h:inputText>
+		<h:inputText value="#{formularioBean.suporte.cpf}" a:class='form-control text-center' type='text' id='cpf' name='cpf' required="true" requiredMessage="CPF em Branco"></h:inputText>
 		<br> Email: </br>
-		<h:inputText value="#{formularioBean.suporte.email}" type='email' a:class='form-control text-center' id='email' name='email' a:required="required"></h:inputText>
+		<h:inputText value="#{formularioBean.suporte.email}" type='email' a:class='form-control text-center' id='email' name='email' required="true" requiredMessage="Email em Branco" validatorMessage="O Email não confere">
+		<f:validateRegex
+		pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+		</h:inputText>
 		<br> telefone: </br>
-		<h:inputText value="#{formularioBean.suporte.telefone}" type='text' a:class='form-control text-center' id='telefone' name='telefone'></h:inputText>
+		<h:inputText value="#{formularioBean.suporte.telefone}" type='text' a:class='form-control text-center' id='telefone' name='telefone' required="true" requiredMessage="Telefone em Branco"></h:inputText>
 		<br>Produto 1: </br>
-		<h:inputText value="#{formularioBean.suporte.produto}" type='text' a:class='form-control text-center' id='prod1' name='prod1'></h:inputText>
+		<h:inputText value="#{formularioBean.suporte.produto}" type='text' a:class='form-control text-center' id='prod1' name='prod1' required="true" requiredMessage="Produto em Branco"></h:inputText>
 		<br></br>
 		<h:commandButton action="#{formularioBean.saveSuporte()}" a:class='btn btn-default' value='Salvar'></h:commandButton>
 		</h:form>																																							
