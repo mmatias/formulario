@@ -11,4 +11,7 @@
 	<h:link value="Cadastrados Finaceiro" outcome="listfinanceiro" styleClass='btn-info btn element-animation'/>
 	<h:link value="Suporte" outcome="formulariosuporte" styleClass='btn-success btn element-animation'/>
 	<h:link value="Cadastrados Suporte" outcome="listsuporte" styleClass='btn-success btn element-animation'/>
+	<h:form>
+	<h:commandButton action="#{formularioBean.logout()}" value="Logout" styleClass='btn-info btn element-animation'></h:commandButton>
+	</h:form>
 </ui:composition>

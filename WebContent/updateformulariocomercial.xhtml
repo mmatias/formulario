@@ -17,6 +17,7 @@
 	<h:outputStylesheet library="css" name="custom.css" />
 	<h:outputStylesheet library="css" name="minhas_animacoes.css" />
 </h:head>
+<f:event listener="#{formularioBean.logado()}" type="preRenderView" />
 <h:body>
 	<ui:include src="/WEB-INF/menu.xhtml" />		
 	<h:form a:class='form_custom text-center element-animation'>

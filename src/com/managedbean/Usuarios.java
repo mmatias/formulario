@@ -41,12 +41,12 @@ public class Usuarios {
 	
 	public String logar() {
 		if (login.equals("123") && senha.equals("123")) {
-			this.logado = true;
+			this.logado = Boolean.TRUE;
 			this.erro = "";
 			return "inicial";
 		} else {
 			this.erro = "Usuário e senha inválidos";
-			this.logado = false;
+			this.logado = Boolean.FALSE;
 			return "login";
 		}
 	}

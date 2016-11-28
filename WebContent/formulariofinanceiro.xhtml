@@ -18,6 +18,7 @@
 	<h:outputStylesheet library="css" name="custom.css" />
 	<h:outputStylesheet library="css" name="minhas_animacoes.css" />
 </h:head>
+<f:event listener="#{formularioBean.logado()}" type="preRenderView" />
 <f:event listener="#{formularioBean.criaFinanceiro()}"
 	type="preRenderView" />	
 <h:body>

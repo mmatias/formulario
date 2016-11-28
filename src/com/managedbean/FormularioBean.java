@@ -1,9 +1,11 @@
 package com.managedbean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,8 +41,18 @@ public class FormularioBean implements Serializable {
 		listComercial();
 		listFinanceiro();
 		listSuporte();
+		this.usuario.setLogado(Boolean.FALSE);
 	}
 
+	public void logado() throws IOException {
+			if (usuario.getLogado() == Boolean.FALSE) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+			}
+	}
+	
+	public String logout(){
+		this.usuario.setLogado(Boolean.FALSE);
+		return "login";
 	}
 	
 	public void criaComercial(){
