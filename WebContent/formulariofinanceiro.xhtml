@@ -19,40 +19,31 @@
 	<h:outputStylesheet library="css" name="minhas_animacoes.css" />
 </h:head>
 <f:event listener="#{formularioBean.criaFinanceiro()}"
-	type="preRenderView" />
+	type="preRenderView" />	
 <h:body>
 <ui:include src="/WEB-INF/menu.xhtml" />
 	<h:form a:class='form_custom text-center element-animation'>
-	<h:messages></h:messages>
+	<p:messages></p:messages>
 		<br>Nome: </br>
-		<h:inputText value="#{formularioBean.financeiro.nome}" a:class='form-control text-center' type='text' id='nome'	name='nome' required="true" requiredMessage="O Campo nome está vazio"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.financeiro.nome}"  type='text' id='nome'	name='nome' required="true" requiredMessage="O Campo nome está vazio"></p:inputText>
 		<br> CPF: </br>
-		<h:inputText value="#{formularioBean.financeiro.cpf}" a:class='form-control text-center' type='text' id='cpf' name='cpf' required="true" requiredMessage="O Campo CPF está vazio"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.financeiro.cpf}"  type='text' id='cpf' name='cpf' required="true" requiredMessage="O Campo CPF está vazio"></p:inputText>
 		<br> Email: </br>
-		<p:inputText label="email" style="width:100%;" value="#{formularioBean.financeiro.email}" id='email' name='email' required="true" requiredMessage="O Campo Email está vazio" validatorMessage="Formato de Email incorreto">
+		<p:inputText style="width:100%; text-align:center;" label="email" value="#{formularioBean.financeiro.email}" id='email' name='email' required="true" requiredMessage="O Campo Email está vazio" validatorMessage="O Formato do Email não confere">
 		<f:validateRegex
 		pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 		</p:inputText>
 		<br> telefone: </br>
-		<h:inputText value="#{formularioBean.financeiro.telefone}" type='text' a:class='form-control text-center' id='telefone' name='telefone' required="true" requiredMessage="Telefone em Branco"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.financeiro.telefone}" type='text'  id='telefone' name='telefone' required="true" requiredMessage="Telefone em Branco"></p:inputText>
 		<p:watermark for="telefone" value="Telefone *" />
 		<br>Fatura 1: </br>
-		<h:inputText value="#{formularioBean.financeiro.fatura1}" type='text' a:class='form-control text-center' id='prod1' name='prod1' required="true" requiredMessage="Produto 1 em Branco"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.financeiro.fatura1}" type='text'  id='fat1' name='fat1' required="true" requiredMessage="Fatura 1 em Branco"></p:inputText>
 		<br>Fatura 2: </br>
-		<h:inputText value="#{formularioBean.financeiro.fatura2}" type='text' a:class='form-control text-center' id='prod2' name='prod2' required="true" requiredMessage="Produto 2 em Branco"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.financeiro.fatura2}" type='text'  id='fat2' name='fat2' required="true" requiredMessage="Fatura 2 em Branco"></p:inputText>
 		<br>Fatura 3: </br>
-		<h:inputText value="#{formularioBean.financeiro.fatura3}" type='text' a:class='form-control text-center' id='prod3' name='prod3' required="true" requiredMessage="Produto 3 em Branco"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.financeiro.fatura3}" type='text'  id='fat3' name='fat3' required="true" requiredMessage="Fatura 3 em Branco"></p:inputText>
 		<br></br>
 		<h:commandButton action="#{formularioBean.saveFinanceiro()}" a:class='btn btn-default' value='Salvar'></h:commandButton>
-		</h:form>		
-		<p:accordionPanel>
-		<p:tab title="a">
-		<h:outputText value="lorem"></h:outputText>
-		</p:tab>
-		<p:tab title="b">
-		<h:outputText value="lorem"></h:outputText>
-		<p:inputMask mask="99/99" />
-		</p:tab>
-		</p:accordionPanel>																																				
+		</h:form>																																						
 </h:body>
 </html>

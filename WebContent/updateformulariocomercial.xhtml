@@ -20,38 +20,42 @@
 <h:body>
 	<ui:include src="/WEB-INF/menu.xhtml" />		
 	<h:form a:class='form_custom text-center element-animation'>
+	<p:messages></p:messages>
 		<br>Nome: </br>
-		<h:inputText value="#{formularioBean.comercial.nome}" a:class='form-control text-center' type='text' id='nome'	name='nome'></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.nome}"  type='text' id='nome'	name='nome' required="true" requiredMessage="Nome em Branco"></p:inputText>
 		<br> CPF: </br>
-		<h:inputText value="#{formularioBean.comercial.cpf}" a:class='form-control text-center' type='text' id='cpf' name='cpf' a:required="required"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.cpf}"  type='text' id='cpf' name='cpf' required="true" requiredMessage="CPF em Branco"></p:inputText>
 		<br> Email: </br>
-		<h:inputText value="#{formularioBean.comercial.email}" type='email' a:class='form-control text-center' id='email' name='email' a:required="required"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.email}" type='email'  id='email' name='email' required="true" requiredMessage="Email em Branco" validatorMessage="O Formato do Email não confere">
+		<f:validateRegex
+		pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+		</p:inputText>
 		<br> telefone: </br>
-		<h:inputText value="#{formularioBean.comercial.telefone}" type='text' a:class='form-control text-center' id='telefone' name='telefone'></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.telefone}" type='text'  id='telefone' name='telefone' required="true" requiredMessage="Telefone em Branco"></p:inputText>
 		<br>Produto 1: </br>
-		<h:inputText value="#{formularioBean.comercial.produto1.nomeproduto}" type='text' a:class='form-control text-center' id='prod1' name='prod1'></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto1.nomeproduto}" type='text'  id='prod1' name='prod1' required="true" requiredMessage="Produto em Branco"></p:inputText>
 		 <br> Valor: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto1.valor}" type='text' a:class='form-control text-center' id='vl1' name='vl1'></h:inputText>
+		 <p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto1.valor}" type='text'  id='vl1' name='vl1' required="true" requiredMessage="Valor 1 em Branco"></p:inputText>
 		 <br> Quantidade: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto1.qnt}" a:class='form-control text-center' type='text' id='qtd1' name='qtd1'></h:inputText>
+		 <p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto1.qnt}"  type='text' id='qtd1' name='qtd1' required="true" requiredMessage="Quantidade 1 em Branco"></p:inputText>
 		 <br> Data: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto1.data}" a:class='form-control text-center' type='text' id='dt1' name='dt1'></h:inputText>
+		 <p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto1.data}"  type='text' id='dt1' name='dt1' required="true" requiredMessage="Data 1 em Branco"></p:inputText>
 		 <br>Produto 2: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto2.nomeproduto}" a:class='form-control text-center' type='text' id='prod2' name='prod2'></h:inputText>
+		 <p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto2.nomeproduto}"  type='text' id='prod2' name='prod2' required="true" requiredMessage="Produto 2 em Branco"></p:inputText>
 		 <br>Valor: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto2.valor}" a:class='form-control text-center' type='text' id='vl2' name='vl2'></h:inputText>
+		 <p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto2.valor}"  type='text' id='vl2' name='vl2' required="true" requiredMessage="Valor 2 em Branco"></p:inputText>
 		 <br>Quantidade: </br>
-		<h:inputText value="#{formularioBean.comercial.produto2.qnt}" a:class='form-control text-center' type='text' id='qtd2' name='qtd2'></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto2.qnt}"  type='text' id='qtd2' name='qtd2' required="true" requiredMessage="Quantidade 2 em Branco"></p:inputText>
 		 <br>Data: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto2.data}" a:class='form-control text-center' type='text' id='dt2' name='dt2'></h:inputText>
+		 <p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto2.data}"  type='text' id='dt2' name='dt2' required="true" requiredMessage="Data 2 em Branco"></p:inputText>
 		<br>Produto 3: </br>
-		 <h:inputText value="#{formularioBean.comercial.produto3.nomeproduto}" a:class='form-control text-center' type='text' id='prod3' name='prod3'></h:inputText>
+		 <p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto3.nomeproduto}"  type='text' id='prod3' name='prod3' required="true" requiredMessage="Produto 3 em Branco"></p:inputText>
 		<br> Valor: </br>
-		<h:inputText value="#{formularioBean.comercial.produto3.valor}" a:class='form-control text-center' type='text' id='vl3' name='vl3'></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto3.valor}"  type='text' id='vl3' name='vl3' required="true" requiredMessage="Valor 3 em Branco"></p:inputText>
 		<br> Quantidade: </br>
-		<h:inputText value="#{formularioBean.comercial.produto3.qnt}" a:class='form-control text-center' type='text' id='qtd3' name='qtd3'></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto3.qnt}"  type='text' id='qtd3' name='qtd3' required="true" requiredMessage="Quantidade 3 em Branco"></p:inputText>
 		<br> Data: </br>
-		<h:inputText value="#{formularioBean.comercial.produto3.data}" a:class='form-control text-center' type='text' id='dt3' name='dt3'></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.comercial.produto3.data}"  type='text' id='dt3' name='dt3' required="true" requiredMessage="Data 3 em Branco"></p:inputText>
 		<br></br>
 		<h:commandButton action="#{formularioBean.updateComercial(formularioBean.comercial.id)}" a:class='btn btn-default' value='Atualizar'></h:commandButton>
 		</h:form>																																							

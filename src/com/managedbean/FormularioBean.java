@@ -41,13 +41,6 @@ public class FormularioBean implements Serializable {
 		listSuporte();
 	}
 
-	public String logado() {
-		if (this.usuario.getLogado() == true) {
-			return "formularios";
-		} else {
-			return "login";
-		}
-
 	}
 	
 	public void criaComercial(){

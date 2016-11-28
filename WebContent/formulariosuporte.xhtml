@@ -22,20 +22,20 @@
 <h:body>
 <ui:include src="/WEB-INF/menu.xhtml" />
 	<h:form a:class='form_custom text-center element-animation'>
-	<h:messages id="erros"></h:messages>
+	<p:messages id="erros"></p:messages>
 		<br>Nome: </br>
-		<h:inputText value="#{formularioBean.suporte.nome}" a:class='form-control text-center' type='text' id='nome' name='nome' required="true" requiredMessage="Nome em Branco"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.suporte.nome}"  type='text' id='nome' name='nome' required="true" requiredMessage="Nome em Branco"></p:inputText>
 		<br> CPF: </br>
-		<h:inputText value="#{formularioBean.suporte.cpf}" a:class='form-control text-center' type='text' id='cpf' name='cpf' required="true" requiredMessage="CPF em Branco"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.suporte.cpf}"  type='text' id='cpf' name='cpf' required="true" requiredMessage="CPF em Branco"></p:inputText>
 		<br> Email: </br>
-		<h:inputText value="#{formularioBean.suporte.email}" type='email' a:class='form-control text-center' id='email' name='email' required="true" requiredMessage="Email em Branco" validatorMessage="O Email não confere">
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.suporte.email}" type='email'  id='email' name='email' required="true" requiredMessage="Email em Branco" validatorMessage="O Email não confere">
 		<f:validateRegex
 		pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-		</h:inputText>
+		</p:inputText>
 		<br> telefone: </br>
-		<h:inputText value="#{formularioBean.suporte.telefone}" type='text' a:class='form-control text-center' id='telefone' name='telefone' required="true" requiredMessage="Telefone em Branco"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.suporte.telefone}" type='text'  id='telefone' name='telefone' required="true" requiredMessage="Telefone em Branco"></p:inputText>
 		<br>Produto 1: </br>
-		<h:inputText value="#{formularioBean.suporte.produto}" type='text' a:class='form-control text-center' id='prod1' name='prod1' required="true" requiredMessage="Produto em Branco"></h:inputText>
+		<p:inputText style="width:100%; text-align:center;" value="#{formularioBean.suporte.produto}" type='text'  id='prod1' name='prod1' required="true" requiredMessage="Produto em Branco"></p:inputText>
 		<br></br>
 		<h:commandButton action="#{formularioBean.saveSuporte()}" a:class='btn btn-default' value='Salvar'></h:commandButton>
 		</h:form>																																							
