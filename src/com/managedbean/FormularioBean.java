@@ -34,6 +34,7 @@ public class FormularioBean implements Serializable {
 	private List<FormComercial> comercialList;
 	private List<FormFinanceiro> financeiroList;
 	private List<FormSuporte> suporteList;
+	private BD bd = new BD();
 
 	@PostConstruct
 	public void init() {
@@ -45,35 +46,32 @@ public class FormularioBean implements Serializable {
 	}
 
 	public void logado() throws IOException {
-			if (usuario.getLogado() == Boolean.FALSE) {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-			}
+		if (usuario.getLogado() == Boolean.FALSE) {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+		}
 	}
-	
-	public String logout(){
+
+	public String logout() {
 		this.usuario.setLogado(Boolean.FALSE);
 		return "login";
 	}
-	
-	public void criaComercial(){
+
+	public void criaComercial() {
 		this.comercial = new FormComercial();
 	}
-	
-	public void criaFinanceiro(){
+
+	public void criaFinanceiro() {
 		this.financeiro = new FormFinanceiro();
 	}
-	
-	public void criaSuporte(){
+
+	public void criaSuporte() {
 		this.suporte = new FormSuporte();
 	}
 
 	public String saveComercial() {
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+			Connection conn = bd.conectar();
 
 			// the mysql insert statement
 			String query = " insert into comercial" + " values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -113,10 +111,8 @@ public class FormularioBean implements Serializable {
 		this.comercialList = new ArrayList<FormComercial>();
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// our SQL SELECT query.
 			// if you only need a few columns, specify them by name instead of
@@ -172,10 +168,8 @@ public class FormularioBean implements Serializable {
 	public void deleteComercial(int id) {
 		try {
 			// create the mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// create the mysql delete statement.
 			// i'm deleting the row where the id is "3", which corresponds to my
@@ -198,10 +192,8 @@ public class FormularioBean implements Serializable {
 	public String updateListComercial(int id) {
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			this.comercial = new FormComercial();
 			Produtos p = new Produtos();
@@ -258,10 +250,8 @@ public class FormularioBean implements Serializable {
 	public String updateComercial(int id) {
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// the mysql insert statement
 			String query = "UPDATE comercial SET  " + "nome =  ?," + "cpf =  ?," + "email =  ?," + "telefone =  ?,"
@@ -304,10 +294,8 @@ public class FormularioBean implements Serializable {
 	public String saveFinanceiro() {
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// the mysql insert statement
 			String query = " insert into financeiro" + " values (NULL, ?, ?, ?, ?, ?, ?, ?)";
@@ -338,10 +326,8 @@ public class FormularioBean implements Serializable {
 		this.financeiroList = new ArrayList<FormFinanceiro>();
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// our SQL SELECT query.
 			// if you only need a few columns, specify them by name instead of
@@ -383,10 +369,8 @@ public class FormularioBean implements Serializable {
 	public void deleteFinanceiro(int id) {
 		try {
 			// create the mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// create the mysql delete statement.
 			// i'm deleting the row where the id is "3", which corresponds to my
@@ -409,10 +393,8 @@ public class FormularioBean implements Serializable {
 	public String updateListFinanceiro(int id) {
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			this.financeiro = new FormFinanceiro();
 			Produtos p = new Produtos();
@@ -454,10 +436,8 @@ public class FormularioBean implements Serializable {
 	public String updateFinanceiro(int id) {
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// the mysql insert statement
 			String query = "UPDATE financeiro SET  " + "nome =  ?," + "cpf =  ?," + "email =  ?," + "telefone =  ?,"
@@ -489,10 +469,8 @@ public class FormularioBean implements Serializable {
 	public String saveSuporte() {
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// the mysql insert statement
 			String query = " insert into suporte" + " values (NULL, ?, ?, ?, ?, ?)";
@@ -521,10 +499,8 @@ public class FormularioBean implements Serializable {
 		this.suporteList = new ArrayList<FormSuporte>();
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// our SQL SELECT query.
 			// if you only need a few columns, specify them by name instead of
@@ -563,10 +539,8 @@ public class FormularioBean implements Serializable {
 	public void deleteSuporte(int id) {
 		try {
 			// create the mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// create the mysql delete statement.
 			// i'm deleting the row where the id is "3", which corresponds to my
@@ -589,10 +563,8 @@ public class FormularioBean implements Serializable {
 	public String updateListSuporte(int id) {
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			this.suporte = new FormSuporte();
 
@@ -631,10 +603,8 @@ public class FormularioBean implements Serializable {
 	public String updateSuporte(int id) {
 		try {
 			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/dw2";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "apollo87");
+
+			Connection conn = bd.conectar();
 
 			// the mysql insert statement
 			String query = "UPDATE suporte SET  " + "nome =  ?," + "cpf =  ?," + "email =  ?," + "telefone =  ?,"
@@ -715,5 +685,13 @@ public class FormularioBean implements Serializable {
 
 	public void setSuporteList(List<FormSuporte> suporteList) {
 		this.suporteList = suporteList;
+	}
+
+	public BD getBd() {
+		return bd;
+	}
+
+	public void setBd(BD bd) {
+		this.bd = bd;
 	}
 }
